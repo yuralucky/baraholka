@@ -36,7 +36,8 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Category::create($request->all());
+        return redirect('category');
     }
 
     /**
@@ -47,22 +48,24 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        //
+        $category=Category::findOrFail($id);
+        return view('category.show_category')->with('category',$category);
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing the category
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        //
+        $category=Category::findOrFail($id);
+        return view('category.edit_category',compact('category'));
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the category in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
@@ -70,7 +73,9 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $category=Category::findOrFail($id);
+        $category->update($request->all());
+        return redirect('category');
     }
 
     /**
@@ -82,5 +87,6 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         Category::findOrFail($id)->delete();
+        return redirect('category');
     }
 }

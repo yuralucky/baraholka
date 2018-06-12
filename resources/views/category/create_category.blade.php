@@ -1,20 +1,36 @@
 @extends('main')
 @section('content')
     <div class="row">
-        <div class="col-lg-12 margin-tb">
+        <div class="col-md-12 margin-tb">
             <div class="pull-left">
-                <h2>Add New Category</h2>
+                <h4>Create new category</h4>
             </div>
-            <div class="pull-right">
-                <a class="btn btn-primary" href="{{ action('CategoryController@index') }}"> Back</a>
-            </div>
+            <a href="{{action('CategoryController@index')}}" class=" btn btn-block  btn-primary"> Show all category</a>
         </div>
+
     </div>
-    <div class="row">
-        {!!  Form::open(['action'=>'CategoryController@store','method'=>'post'])!!}
-        {!! Form::label('name',['class'=>'form-control'])!!}
-        {!! Form::text('name','',['class'=>'form-control'])!!}
-        {!!  Form::submit('Add new category')!!}
-        {!!  Form::close()!!}
-    </div>
+    <table class="table table-striped table-bordered">
+        <thead class="form-group">
+        <tr>
+            <th>Categories name</th>
+            <th style="width: 40%; ">Action</th>
+        </tr>
+        </thead>
+
+        <tbody class="form-group">
+        <tr>
+            <td>
+                {{  Form::open(['action'=>'CategoryController@store','method'=>'post'])}}
+                {{ Form::text('name','',['class'=>'form-control'])}}
+            </td>
+            </div>
+            <td>
+                {{  Form::submit('Add new category',['class'=>'btn btn-block btn-primary']) }}
+                {{  Form::close()}}
+            </td>
+        </tr>
+        </tbody>
+
+
+    </table>
 @endsection
