@@ -9,12 +9,25 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
           integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
 
-    <title>Hello, world!</title>
+    <title>Baraholka</title>
 </head>
 <body>
 <div class="container">
+    <h2>BARAHOLKA</h2>
+    <a href="{{action('CategoryController@index')}}" class="btn btn-success btn-block">Category</a>
+    <a href="{{action('PostController@index')}}" class="btn btn-success btn-block">Posts</a>
     @yield('content')
 </div>
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->

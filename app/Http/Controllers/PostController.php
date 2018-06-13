@@ -27,7 +27,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        $categories = DB::table('categories')->pluck('name');
+        $categories = DB::table('categories')->pluck('name', 'name');
         return view('post.create_post', compact('categories'));
     }
 
@@ -39,8 +39,11 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-
-        Post::create($request->all());
+        $input= $request->validate([
+            'name'=>'required|min:3|max:20',
+            'description'=>'requires|min:3|max:50'
+        ]);
+        Post::create($input);
         return redirect('post');
     }
 
@@ -65,7 +68,8 @@ class PostController extends Controller
     public function edit($id)
     {
         $post = Post::findOrFail($id);
-        return view('post.edit_post', compact('post'));
+        $category = DB::table('categories')->pluck('name', 'name');
+        return view('post.edit_post', compact('post', 'category'));
     }
 
     /**
@@ -77,8 +81,12 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $input= $request->validate([
+            'name'=>'required|min:3|max:20',
+            'description'=>'requires|min:3|max:50'
+        ]);
         $post = Post::findOrFail($id);
-        $post->update($request->all());
+        $post->update($input);
         return redirect('post');
     }
 

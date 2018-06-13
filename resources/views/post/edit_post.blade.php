@@ -29,7 +29,7 @@
                 {{Form::text('description',$post->description,['class'=>'form-control'])}}
             </td>
             <td>
-                {{Form::text('categories_id',$post->category->id,['class'=>'form-control'])}}
+                {{Form::select('category_name',$category,'no category',['class'=>'form-control'])}}
             </td>
 
             <td>

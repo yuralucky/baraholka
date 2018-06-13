@@ -22,7 +22,7 @@
         <tbody>
         <td>{{$post->name}}</td>
         <td>{{$post->description}}</td>
-        <td>{{$post->category->name}}</td>
+        <td>{{$post->category_name}}</td>
         <td>
             {{Form::open(['action'=>['PostController@destroy',$post->id],'method'=>'DELETE'])}}
 

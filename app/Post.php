@@ -14,7 +14,7 @@ class Post extends Model
     protected $fillable = [
         'name',
         'description',
-        'category'
+        'category_name'
     ];
 
     /**
@@ -26,4 +26,6 @@ class Post extends Model
     {
         return $this->belongsTo('App\Category');
     }
+
+
 }
