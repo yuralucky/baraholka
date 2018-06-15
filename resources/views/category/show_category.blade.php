@@ -13,12 +13,20 @@
         <thead>
         <tr>
             <th>Categories name</th>
+            <th>All Post</th>
             <th style="width: 40%; ">Action</th>
         </tr>
         </thead>
 
         <tbody>
         <td>{{$category->name}}</td>
+        <td>
+
+            @foreach($category->posts as $post)
+                <li>{{$post->name }}</li>
+            @endforeach
+
+        </td>
         <td>
             {{Form::open(['action'=>['CategoryController@destroy',$category->id],'method'=>'DELETE'])}}
 

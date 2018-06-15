@@ -17,8 +17,8 @@ class CreatePostsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->text('description');
-            $table->string('category_name')->default('no category');
-            $table->foreign('category_name')->references('name')->on('categories');
+            $table->unsignedInteger('category_id')->default(0);
+            $table->foreign('category_id')->references('id')->on('categories');
             $table->timestamps();
         });
     }

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Http\Requests\CreateFormCategoryRequest;
+use App\Http\Requests\CreateFormRequest;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -14,8 +16,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories=Category::all();
-        return view('category.index_category',compact('categories'));
+        $categories = Category::all();
+        return view('category.index_category', compact('categories'));
     }
 
     /**
@@ -31,65 +33,58 @@ class CategoryController extends Controller
     /**
      * Save a new category
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateFormCategoryRequest $request)
     {
-        $input= $request->validate([
-           'name'=>'required|min:3|max:20',
-
-        ]);
-        Category::create($input);
+        Category::create($request->all());
         return redirect('category');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        $category=Category::findOrFail($id);
-        return view('category.show_category')->with('category',$category);
+        $category = Category::findOrFail($id);
+        return view('category.show_category')->with('category', $category);
     }
 
     /**
      * Show the form for editing the category
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        $category=Category::findOrFail($id);
-        return view('category.edit_category',compact('category'));
+        $category = Category::findOrFail($id);
+        return view('category.edit_category', compact('category'));
     }
 
     /**
      * Update the category in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CreateFormCategoryRequest $request, $id)
     {
-        $input= $request->validate([
-            'name'=>'required|min:3|max:20',
 
-        ]);
-        $category=Category::findOrFail($id);
-        $category->update($input);
+        $category = Category::findOrFail($id);
+        $category->update($request->all());
         return redirect('category');
     }
 
     /**
      * Remove category
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

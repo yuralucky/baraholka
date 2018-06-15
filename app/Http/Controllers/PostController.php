@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Http\Requests\CreateFormCategoryRequest;
+use App\Http\Requests\CreateFormRequest;
 use App\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -27,7 +29,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        $categories = DB::table('categories')->pluck('name', 'name');
+        $categories = DB::table('categories')->pluck('name', 'id');
         return view('post.create_post', compact('categories'));
     }
 
@@ -37,13 +39,10 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateFormCategoryRequest $request)
     {
-        $input= $request->validate([
-            'name'=>'required|min:3|max:20',
-            'description'=>'requires|min:3|max:50'
-        ]);
-        Post::create($input);
+
+       $post= Post::create($request->all());
         return redirect('post');
     }
 
@@ -68,7 +67,7 @@ class PostController extends Controller
     public function edit($id)
     {
         $post = Post::findOrFail($id);
-        $category = DB::table('categories')->pluck('name', 'name');
+        $category = DB::table('categories')->pluck('name', 'id');
         return view('post.edit_post', compact('post', 'category'));
     }
 
@@ -79,14 +78,10 @@ class PostController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CreateFormCategoryRequest $request, $id)
     {
-        $input= $request->validate([
-            'name'=>'required|min:3|max:20',
-            'description'=>'requires|min:3|max:50'
-        ]);
         $post = Post::findOrFail($id);
-        $post->update($input);
+        $post->update($request->all());
         return redirect('post');
     }
 

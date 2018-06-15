@@ -9,6 +9,7 @@
         </div>
 
     </div>
+    @if(count($categories)>0)
     <table class="table table-striped table-bordered">
         <thead class="form-group">
         <tr>
@@ -21,7 +22,7 @@
 
         <tbody class="form-group">
         <tr>
-            {{  Form::model($categories,['action'=>'PostController@store','method'=>'post'])}}
+            {{  Form::open(['action'=>'PostController@store','method'=>'post'])}}
             <td>
                 {{ Form::text('name','',['class'=>'form-control'])}}
             </td>
@@ -29,7 +30,7 @@
                 {{ Form::text('description','',['class'=>'form-control'])}}
             </td>
             <td>
-                {{ Form::select('category_name',$categories,'no category',['class'=>'form-control'])}}
+                {{ Form::select('category_id',$categories,'',['class'=>'form-control'])}}
             </td>
 
             <td>
@@ -41,4 +42,7 @@
 
 
     </table>
+    @else
+    <h2>Create minimum 1 category</h2>
+    @endif
 @endsection

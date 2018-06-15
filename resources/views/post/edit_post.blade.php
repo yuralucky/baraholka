@@ -22,14 +22,14 @@
         <tbody class="form-group">
         <tr>
             <td>
-                {{Form::model($post,['method'=>'PATCH','action'=>['PostController@update',$post->id]])}}
+                {{Form::open(['method'=>'PATCH','action'=>['PostController@update',$post->id]])}}
                 {{Form::text('name',$post->name,['class'=>'form-control'])}}
             </td>
             <td>
                 {{Form::text('description',$post->description,['class'=>'form-control'])}}
             </td>
             <td>
-                {{Form::select('category_name',$category,'no category',['class'=>'form-control'])}}
+                {{Form::select('category_id',$category,'',['class'=>'form-control'])}}
             </td>
 
             <td>
